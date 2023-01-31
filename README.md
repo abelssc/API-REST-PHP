@@ -13,6 +13,7 @@ La diferencia principal es que este **proyecto se baso en PHP**.
     * <a href="#paginate">PAGINATE</a>
     * <a href="#relation">RELATION</a>
 
+
 ## <span id="configuracion">CONFIGURACION</span>
 * Usar un servidor apache (`xampp, lampp, laragon`)
 * Crear una BBDD con el gestior de su preferencia
