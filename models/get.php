@@ -35,4 +35,9 @@ class GetModel{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     }
+    public function getFilters($sentence_filter){
+        $stmt=$this->dbh->prepare("SELECT * FROM $this->table WHERE $sentence_filter");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
