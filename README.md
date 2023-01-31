@@ -3,8 +3,8 @@
 Este proyecto se enfoco en hacer una copia del api REST en GITHUB "JSON Server".
 La diferencia principal es que este **proyecto se baso en PHP**.
 
-* <a href="configuracion">CONFIGURACION</a>
-* <a href="rutas">RUTAS</a>
+* <a href="#configuracion">CONFIGURACION</a>
+* <a href="#rutas">RUTAS</a>
     * <a href="#include">INCLUDE</a>
     * <a href="#exclude">EXCLUDE</a>
     * <a href="#like">LIKE</a>
