@@ -5,13 +5,13 @@ La diferencia principal es que este **proyecto se baso en PHP**.
 
 * <a href="configuracion">CONFIGURACION</a>
 * <a href="rutas">RUTAS</a>
-    * <a href="/include">INCLUDE</a>
-    * <a href="/exclude">EXCLUDE</a>
+    * <a href="#include">INCLUDE</a>
+    * <a href="#exclude">EXCLUDE</a>
     * <a href="#like">LIKE</a>
     * <a href="#operator">OPERATOR</a>
-    * <a href="sort">SORT</a>
-    * <a href="paginate">PAGINATE</a>
-    * <a href="relation">RELATION</a>
+    * <a href="#sort">SORT</a>
+    * <a href="#paginate">PAGINATE</a>
+    * <a href="#relation">RELATION</a>
 
 ## <span id="configuracion">CONFIGURACION</span>
 * Usar un servidor apache (`xampp, lampp, laragon`)
