@@ -5,6 +5,7 @@ La diferencia principal es que este **proyecto se baso en PHP**.
 
 * <a href="configuracion">CONFIGURACION</a>
 * <a href="rutas">RUTAS</a>
+<<<<<<< HEAD
     * <a href="/include">INCLUDE</a>
     * <a href="/exclude">EXCLUDE</a>
     * <a href="#like">LIKE</a>
@@ -12,6 +13,15 @@ La diferencia principal es que este **proyecto se baso en PHP**.
     * <a href="sort">SORT</a>
     * <a href="paginate">PAGINATE</a>
     * <a href="relation">RELATION</a>
+=======
+    * <a href="include">INCLUDE</a>
+    * <a href="include">EXCLUDE</a>
+    * <a href="include">LIKE</a>
+    * <a href="include">OPERATOR</a>
+    * <a href="include">SORT</a>
+    * <a href="include">PAGINATE</a>
+    * <a href="include">RELATION</a>
+>>>>>>> a348466780b5508e9a7beed7abd6cce5c56a4264
 
 ## <span id="configuracion">CONFIGURACION</span>
 * Usar un servidor apache (`xampp, lampp, laragon`)
