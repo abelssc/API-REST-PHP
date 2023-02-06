@@ -9,7 +9,7 @@ La diferencia principal es que este **proyecto se baso en PHP**.
     * <a href="#exclude">EXCLUDE</a>
     * <a href="#like">LIKE</a>
     * <a href="#operator">OPERATOR</a>
-    * <a href="#sort">SORT</a>
+    * <a href="#order">ORDER</a>
     * <a href="#paginate">PAGINATE</a>
     * <a href="#relation">RELATION</a>
 
@@ -46,9 +46,9 @@ GET /posts?id=1&id=2
 La sentencia SQL ara include es
 ```sql
 SELECT * FROM posts WHERE title='json-server' and author='typicode';
-SELECT * FROM posts WHERE id=1 and id=2
+SELECT * FROM posts WHERE id=1 or id=2
 ```
-La segunda sentencia varia respecto a JSON.SERVER (JSON SERVER USA EL OPERADOR or para la sintaxis SQL cuando hay variables iguales)
+<!-- La segunda sentencia varia respecto a JSON.SERVER (JSON SERVER USA EL OPERADOR or para la sintaxis SQL cuando hay variables iguales) -->
 ## <span id="exclude">EXCLUDE</span>
 Agregar `_ne` para excuir un valor
 ```
@@ -82,16 +82,20 @@ SELECT * FROM posts WHERE views>10 and views<20
 ```
 
 
-## <span id="sort">SORT</span>
-Add `_sort` and `_order` (ascending order by default)
+## <span id="order">ORDER</span>
+Add  `_order`
 ```
-GET /posts?_sort=views&_order=asc
-GET /posts/1/comments?_sort=votes&_order=asc
+GET /posts?_order=views,desc
+GET /posts/?_order=views,desc&_order=id,asc
 ```
-La sentencia SQL para SORT es
+La sentencia order funciona diferente a JSON SERVER
+
+La columna y el orden son requeridos.
+
+La sentencia SQL para order es
 ```sql
-SELECT * FROM posts ORDER BY views asc
-SELECT * FROM posts WHERE id='1' ORDER BY votes asc
+SELECT * FROM posts ORDER BY views desc
+SELECT * FROM posts ORDER BY views desc,id asc
 ```
 
 ## <span id="paginate">PAGINATE</span>

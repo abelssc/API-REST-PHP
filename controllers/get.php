@@ -7,6 +7,7 @@ class GetController
     public $model;
     public $sentence_filter="";
     public $sentence_order="";
+    public $sentence_limit="";
 
     function __construct($table)
     {
@@ -70,10 +71,39 @@ class GetController
             $this->sentence_filter .= "$key LIKE '%$value%' and ";
         }
     }
+    public function filter_gte($filters){
+        $key=$filters["key"];
+        $values=$filters["array_values"];
+        foreach ($values as $value) {
+            $this->sentence_filter .= "$key >= $value and ";
+        }
+    }
+    public function filter_lte($filters){
+        $key=$filters["key"];
+        $values=$filters["array_values"];
+        foreach ($values as $value) {
+            $this->sentence_filter .= "$key <= $value and ";
+        }
+    }
+    public function order($order){
+        $col=$order["col"];
+        $sort=$order["sort"];
+        if(empty($this->sentence_order)){
+            $this->sentence_order="ORDER BY ";
+        }
+        $this->sentence_order .= "$col $sort , ";
+    }
+    public function limit($limit){
+        $limit = $paginate["_limit"] ?? 10;
+        $page = ($paginate["_page"] ?? 0) * $limit;
+        return $this->model->getWithPaginate($page, $limit);
+    }
     public function getFilters(){
         $this->sentence_filter=rtrim($this->sentence_filter," and ");
-        return $this->model->getFilters($this->sentence_filter);
+        $this->sentence_order=rtrim($this->sentence_order," , ");
+        return $this->model->getFilters($this->sentence_filter,$this->sentence_order,$this->sentence_limit);
     }
+ 
     //ORDEN
     // public function orderBy($orders){
     //     $sort=$orders["sort"];

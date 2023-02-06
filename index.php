@@ -55,11 +55,11 @@ if(in_array($ruta_solicitada,$rutas_permitidas)){
                 "filter"=>"/^.*$/",
                 "filter_exclude"=>"/^.*(_ne)$/",
                 "filter_like"=>"/^.*(_like)$/",
+                "filter_gte"=>"/^.*(_gte)$/",
+                "filter_lte"=>"/^.*(_lte)$/",
                 "join"=>"/^_embed$/",
-                "order_sort"=>"/^_sort$/",
-                "order_order"=>"/^_order$/",
-                "paginate_limit"=>"/^_limit$/",
-                "paginate_page"=>"/^_page$/"
+                "order"=>"/^_order$/",
+                "page"=>"/^_page$/"
             ];
 
             foreach ($_GET as $key => $array_values) {
@@ -74,7 +74,7 @@ if(in_array($ruta_solicitada,$rutas_permitidas)){
                 //     ]);
                 // }
 
-                //FILTROS
+                //EXCLUDE
                 if(preg_match($patterns["filter_exclude"],$key)){
                     $key=rtrim($key,"_ne");
                     $class->filter_exclude([
@@ -82,13 +82,49 @@ if(in_array($ruta_solicitada,$rutas_permitidas)){
                         "array_values"=>$array_values
                     ]);
                 }
+                //LIKE
                 else if(preg_match($patterns["filter_like"],$key)){
                     $key=rtrim($key,"_like");
                     $class->filter_like([
                         "key"=>$key,
                         "array_values"=>$array_values
                     ]);
-                }else{
+                }
+                //GREATER THAN EQUAL
+                else if(preg_match($patterns["filter_gte"],$key)){
+                    $key=rtrim($key,"_gte");
+                    $class->filter_gte([
+                        "key"=>$key,
+                        "array_values"=>$array_values
+                    ]);
+                }
+                //LOW THAN EQUAL
+                else if(preg_match($patterns["filter_lte"],$key)){
+                    $key=rtrim($key,"_lte");
+                    $class->filter_lte([
+                        "key"=>$key,
+                        "array_values"=>$array_values
+                    ]);
+                }
+                //ORDER 
+                else if(preg_match($patterns["order"],$key)){
+                    foreach ($array_values as  $value) {
+                        $conjunto=explode(",",$value);
+                        $col=$conjunto[0];
+                        $sort=$conjunto[1];
+
+                        $class->order([
+                            "col"=>$col,
+                            "sort"=>$sort
+                        ]);
+                    }
+                }
+                else if(preg_match($patterns["page"],$key)){
+                    
+                }
+ 
+                //INCLUDE
+                else{
                     $class->filter_include([
                         "key"=>$key,
                         "array_values"=>$array_values
