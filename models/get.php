@@ -24,19 +24,9 @@ class GetModel{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     }
-    public function getWithFilters($str){
-        $stmt= $this->dbh->prepare("SELECT * FROM $this->table WHERE $str");
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-    public function getWithPaginate($page,$limit){
-        $stmt=$this->dbh->prepare("SELECT * FROM $this->table LIMIT $page,$limit");
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    }
-    public function getFilters($sentence_filter){
-        $stmt=$this->dbh->prepare("SELECT * FROM $this->table WHERE $sentence_filter");
+   
+    public function getData($sentence_filter,$sentence_order,$sentence_page){
+        $stmt=$this->dbh->prepare("SELECT * FROM $this->table $sentence_filter $sentence_order $sentence_page");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

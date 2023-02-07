@@ -115,7 +115,13 @@ SELECT * FROM posts LIMIT 140,20
 
 10 items are returned by default
 
-## <span id="relation">RELACION</span>
+## <span id="relation">RELACION "AUN NO DISPONIBLE"</span>
+Para hacer union de tablas se necesita seguir un formato especifico al nombrar los primary y foreing key.
+```
+PRIMARY KEY: id
+FOREIGN KEY: nombreTabla_id
+```
+
 To include children resources, add `_embed`
 ```
 GET /posts?_embed=comments
@@ -123,6 +129,6 @@ GET /posts/1?_embed=comments
 ```
 La sentencia SQL para `_embed` es
 ```sql
-SELECT * FROM posts LEFT JOIN comments ON posts.id=comments.postsId
-SELECT * FROM posts LEFT JOIN comments ON posts.id=comments.postsId WHERE posts.id='1'
+SELECT * FROM posts LEFT JOIN comments ON posts.id=comments.id
+SELECT * FROM posts LEFT JOIN comments ON posts.id=comments.id WHERE posts.id='1'
 ```

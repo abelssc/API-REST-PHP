@@ -5,9 +5,12 @@ class GetController
 {
     public $table;
     public $model;
+
     public $sentence_filter="";
     public $sentence_order="";
-    public $sentence_limit="";
+    public $sentence_page="";
+    public $page;
+    public $limit=10;
 
     function __construct($table)
     {
@@ -22,25 +25,7 @@ class GetController
     {
         return $this->model->getOne($id);
     }
-    public function getWithFilters($filters)
-    {
-        ##primero creamos la cadena col1=val1 and col2=val2 and ....
-        $str = "";
-        foreach ($filters as $key => $value) {
-            $str .= "$key = '$value' and ";
-        }
-        ##rtrim elimina el ultimo and
-        $str = rtrim($str, " and ");
 
-        #y enviamos el filtro
-        return $this->model->getWithFilters($str);
-    }
-    public function getWithPaginate($paginate)
-    {
-        $limit = $paginate["_limit"] ?? 10;
-        $page = ($paginate["_page"] ?? 0) * $limit;
-        return $this->model->getWithPaginate($page, $limit);
-    }
     //FILTROS
     public function filter_include($filters)
     {
@@ -88,26 +73,35 @@ class GetController
     public function order($order){
         $col=$order["col"];
         $sort=$order["sort"];
-        if(empty($this->sentence_order)){
-            $this->sentence_order="ORDER BY ";
-        }
         $this->sentence_order .= "$col $sort , ";
     }
-    public function limit($limit){
-        $limit = $paginate["_limit"] ?? 10;
-        $page = ($paginate["_page"] ?? 0) * $limit;
-        return $this->model->getWithPaginate($page, $limit);
+    public function setPage($page){
+        $this->page=$page;
     }
-    public function getFilters(){
-        $this->sentence_filter=rtrim($this->sentence_filter," and ");
-        $this->sentence_order=rtrim($this->sentence_order," , ");
-        return $this->model->getFilters($this->sentence_filter,$this->sentence_order,$this->sentence_limit);
+    public function setLimit($limit){
+        $this->limit=$limit;
+    }
+
+    public function getData(){
+        //RECORDAR:
+        // EMPTY= SI TIENE VALOR Y NO ES CERO
+        // ISSET= SI ESTA DECLARADA Y NO ES NULL
+        //LLENAMOS DATA
+        if(!empty($this->sentence_filter)){
+            $this->sentence_filter="WHERE $this->sentence_filter";
+            $this->sentence_filter=rtrim($this->sentence_filter," and ");
+        }
+        if(!empty($this->sentence_order)){
+            $this->sentence_order="ORDER BY $this->sentence_order";
+            $this->sentence_order=rtrim($this->sentence_order," , ");
+        }
+        if(isset($this->page)){
+            $page=$this->page*$this->limit;
+            $this->sentence_page="LIMIT $page,$this->limit";
+        }
+ 
+        //EJECUTAMOS
+        return $this->model->getData($this->sentence_filter,$this->sentence_order,$this->sentence_page);
     }
  
-    //ORDEN
-    // public function orderBy($orders){
-    //     $sort=$orders["sort"];
-    //     $order=$orders["order"];//DESC OR ASC
-    //     $this->sentence_order="ORDER BY $sort $order ,";
-    // }
 }

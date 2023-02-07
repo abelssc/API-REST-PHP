@@ -27,6 +27,12 @@ if(isset($url_actual["query"])){
     }
     $_GET=$params;
 }
+/*RETURN
+*$_GET=[
+    key1=>[val1,val2,...],
+    key2=>[...]
+]
+*/
 
 ##definimos rutas permitidas
 $rutas_permitidas=["categorias","productos","clientes","usuarios"];
@@ -59,20 +65,11 @@ if(in_array($ruta_solicitada,$rutas_permitidas)){
                 "filter_lte"=>"/^.*(_lte)$/",
                 "join"=>"/^_embed$/",
                 "order"=>"/^_order$/",
-                "page"=>"/^_page$/"
+                "page"=>"/^_page$/",
+                "limit"=>"/^_limit$/"
             ];
 
             foreach ($_GET as $key => $array_values) {
-                //ORDEN
-                // if(preg_match($patterns["order_sort"],$key)){
-                //     $order=["sort"=>$array_values];
-
-                //     $class->orderBy([
-                //         "sort"=>$array_values,
-
-                //         "order"=>$array_values
-                //     ]);
-                // }
 
                 //EXCLUDE
                 if(preg_match($patterns["filter_exclude"],$key)){
@@ -119,10 +116,14 @@ if(in_array($ruta_solicitada,$rutas_permitidas)){
                         ]);
                     }
                 }
+                //PAGE
                 else if(preg_match($patterns["page"],$key)){
-                    
+                    $class->setPage($array_values[0]);
                 }
- 
+                //LIMIT
+                else if(preg_match($patterns["limit"],$key)){
+                   $class->setLimit($array_values[0]);
+                }
                 //INCLUDE
                 else{
                     $class->filter_include([
@@ -131,38 +132,9 @@ if(in_array($ruta_solicitada,$rutas_permitidas)){
                     ]);
                 }
             }
-            echo json_encode($class->getFilters());
+            echo json_encode($class->getData());
         
-            
-            
-
-            // if (isset($_GET["_limit"])||isset($_GET["_page"]))
-            // $class->getWithPaginate([
-            //     "_limit"=>$_GET["_limit"]??10,
-            //     "_page"=>$_GET["_page"]??0
-            // ]);
-            // if(!empty(preg_grep("/^.*(_ne)$/", array_keys($_GET)))){
-
-            // }
         }
-        // if(!empty($id)){
-        //     echo json_encode($class->getOne($id));
-        // }else if(empty($_GET)){
-        //     echo json_encode($class->getAll());
-        // }
-        // ##PETICIONES PARA GETS
-        // ##PETICIONES PARA PAGINADO ruta?_limit=""&_page=""
-        // else if(isset($_GET["_limit"])||isset($_GET["_page"])){
-        //     echo json_encode($class->getWithPaginate($_GET));
-        // }
-        // ##PETICIONES CON WHERE page?col1=""&col2=""
-        // else if(!empty($_GET)){
-        //     echo json_encode($class->getWithFilters($_GET));
-        // }
-        // ##PETICIONES PARA OBTENER TODO /ruta
-        // else{
-        //     echo json_encode($class->getAll());
-        // }
     }
     else if($method==="POST"){
         // $class=new PostController($route);
