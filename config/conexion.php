@@ -11,6 +11,7 @@
                 $dbh= new PDO($dsn,self::USER,self::PASSWORD);
                 // return "conected";
                 $dbh->exec("SET NAMES 'utf8'");
+                $dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
                 return $dbh;
     
             } catch (PDOException $e) {

@@ -11,5 +11,10 @@ class PostModel{
     public function post($columnas,$valores){
         $stmt=$this->dbh->prepare("INSERT INTO $this->table ($columnas) VALUES ('$valores')");
         $stmt->execute();
+        if($stmt->rowCount()){
+            return "SE  EL REGISTRO EN LA BBDD";
+        }else{
+            return "ERROR, NO SE INSERTO EL REGISTRO LA BBDD";
+        }
     }
 }

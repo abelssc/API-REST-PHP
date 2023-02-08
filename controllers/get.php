@@ -17,16 +17,9 @@ class GetController
         $this->table = $table;
         $this->model = new GetModel($this->table);
     }
-    public function getAll()
-    {
-        return $this->model->getAll();
-    }
-    public function getOne($id)
-    {
-        return $this->model->getOne($id);
-    }
-
-    //FILTROS
+    /*--===============================================
+    FUNCIONES PARA CREAR LAS SENTENCIAS SQL
+    =================================================*/
     public function filter_include($filters)
     {
         $key=$filters["key"];
@@ -81,7 +74,17 @@ class GetController
     public function setLimit($limit){
         $this->limit=$limit;
     }
-
+    /*--===============================================
+    FUNCIONES PARA EL ENVIO DE LA DATA
+    =================================================*/
+    public function getAll()
+    {
+        return $this->model->getAll();
+    }
+    public function getOne($id)
+    {
+        return $this->model->getOne($id);
+    }
     public function getData(){
         //RECORDAR:
         // EMPTY= SI TIENE VALOR Y NO ES CERO
