@@ -16,18 +16,22 @@ La diferencia principal es que este **proyecto se baso en PHP**.
 
 ## <span id="configuracion">CONFIGURACION</span>
 * Usar un servidor apache (`xampp, lampp, laragon`)
-* Crear una BBDD con el gestior de su preferencia
+* Crear una BBDD MySql
 
-* En el archivo `chatApp/config/conexion.php` debe editar las siguientes constantes
+* En el archivo `API-REST-PHP/config/conexion.php` debe editar las siguientes constantes
 ```php
 const HOST="localhost";
 const USER="root";
 const PASSWORD="";
 const DATABASE="yourdatabase";
 ```
-* LA BBDD por defecto es mysql, puede editarla en el archivo `chatApp/config/conexion.php`
-```php 
-$dsn= "mysql:host=..."
+* LA BBDD por defecto es mysql, puede colocar otro gestor pero debe configurar las peticiones PHP. puede editarla en el archivo `API-REST-PHP/models/[get|post|put|delete].php`
+* El nombre del servidor por defecto es `API-REST-PHP` si la editas deberas cambiar las siguientes rutas
+```php
+## linea 09 del archivo index.php 
+require $_SERVER["DOCUMENT_ROOT"]."/API-REST-PHP/config/dirs.php";
+## linea 02 del archivo config/dirs.php
+define("SERVER_NAME","API-REST-PHP");
 ```
 ## <span id="rutas">RUTAS</span>
 ```

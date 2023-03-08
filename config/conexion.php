@@ -3,7 +3,7 @@
         const HOST="localhost";
         const USER="root";
         const PASSWORD="";
-        const DATABASE="blueopticas";
+        const DATABASE="venta_productos";
 
         public static function getConexion(){
             try {

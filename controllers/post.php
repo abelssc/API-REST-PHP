@@ -12,8 +12,7 @@ class PostController{
     }
     public function setJson($json){
         $columnas=implode(",",array_keys($json));
-        $valores=implode(",",array_values($json));
-
+        $valores=implode("','",array_values($json));
         return $this->model->post($columnas,$valores);
     }
 }
